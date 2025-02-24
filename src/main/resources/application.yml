@@ -1,0 +1,18 @@
+server:
+  port: 80
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    #defer-datasource-initialization: true
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: validate
+      #ddl-auto: create
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=infinity_stack
+    username: postgres
+    password: MobileDev
+    driverClassName: org.postgresql.Driver
+
