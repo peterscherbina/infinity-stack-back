@@ -26,6 +26,20 @@ public class Employee implements UserDetails {
 
     private boolean isBlock;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "employee_data_id",
+            referencedColumnName = "id"
+    )
+    private EmployeeData employeeData;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "employee_id",
+            referencedColumnName = "id"
+    )
+    private Set<Entry> entries;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "relationship_employee_and_role",
@@ -33,6 +47,8 @@ public class Employee implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> authorities;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

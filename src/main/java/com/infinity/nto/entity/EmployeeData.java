@@ -21,8 +21,6 @@ public class EmployeeData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long ownerId;
-
     private String name;
     private String photo;
     private String employeePosition;
