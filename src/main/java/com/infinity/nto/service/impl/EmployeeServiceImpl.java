@@ -36,10 +36,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     @Override
     public EmployeeDataDto info(String login) {
-        if (employeeRepository.existsByLogin(login)) {
+        if (!employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
-        if (employeeDataRepository.existsByEmployeeLogin(login)) {
+        if (!employeeDataRepository.existsByEmployeeLogin(login)) {
             throw new EmployeeDataNotFoundException("Employee Data Not Found");
         }
 
@@ -49,14 +49,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     @Override
     public void open(String login, long value) {
-        if (employeeRepository.existsByLogin(login)) {
+        if (!employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
-        if (employeeDataRepository.existsByEmployeeLogin(login)) {
+        if (!employeeDataRepository.existsByEmployeeLogin(login)) {
             throw new EmployeeDataNotFoundException("Employee Data Not Found");
         }
 
-        if (codeRepository.existsByValue(value)) {
+        if (!codeRepository.existsByValue(value)) {
             throw new CodeNotFoundException("Code Not Found");
         }
         if (employeeRepository.getIsBlockByLogin(login)) {
@@ -70,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     @Override
     public List<EntryDto> getEntryList(String login) {
-        if (employeeRepository.existsByLogin(login)) {
+        if (!employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     @Override
     public boolean amIBlocked(String login) {
-        if (employeeRepository.existsByLogin(login)) {
+        if (!employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 

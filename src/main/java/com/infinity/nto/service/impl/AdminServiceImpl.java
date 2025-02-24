@@ -35,10 +35,10 @@ public class AdminServiceImpl implements AdminService {
             throw new SelfChangeException("Self View");
         }
 
-        if (employeeRepository.existsByLogin(employeeLogin)) {
+        if (!employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
-        if (employeeDataRepository.existsByEmployeeLogin(employeeLogin)) {
+        if (!employeeDataRepository.existsByEmployeeLogin(employeeLogin)) {
             throw new EmployeeDataNotFoundException("Employee Data Not Found");
         }
 
@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
             throw new SelfChangeException("Self Change");
         }
 
-        if (employeeRepository.existsByLogin(employeeLogin)) {
+        if (!employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
@@ -66,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
             throw new SelfChangeException("Self View");
         }
 
-        if (employeeRepository.existsByLogin(employeeLogin)) {
+        if (!employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
@@ -80,7 +80,7 @@ public class AdminServiceImpl implements AdminService {
             throw new SelfChangeException("Self View");
         }
 
-        if (employeeRepository.existsByLogin(employeeLogin)) {
+        if (!employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
