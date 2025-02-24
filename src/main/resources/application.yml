@@ -11,8 +11,8 @@ spring:
       #ddl-auto: create
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=infinity_stack
-    username: postgres
-    password: MobileDev
+    url: jdbc:postgresql://localhost:5432/isb?currentSchema=infinity_stack
+    username: isb
+    password: isb_password
     driverClassName: org.postgresql.Driver
 

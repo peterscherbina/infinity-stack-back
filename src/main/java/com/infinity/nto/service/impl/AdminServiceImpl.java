@@ -28,23 +28,21 @@ public class AdminServiceImpl implements AdminService {
     private final EmployeeDataRepository employeeDataRepository;
     private final EntryRepository entryRepository;
 
+    @Transactional
     @Override
     public EmployeeDataDto getEmployeeInfo(String employeeLogin, String selfLogin) {
         if (employeeLogin.equals(selfLogin)) {
             throw new SelfChangeException("Self View");
         }
 
-        Optional<Long> employee = employeeRepository.findIdByLogin(employeeLogin);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
-
-        Optional<EmployeeData> employeeData = employeeDataRepository.findByOwnerId(employee.get());
-        if (employeeData.isEmpty()) {
+        if (employeeDataRepository.existsByEmployeeLogin(employeeLogin)) {
             throw new EmployeeDataNotFoundException("Employee Data Not Found");
         }
 
-        return EmployeeDataMapper.toEmployeeDataDto(employeeData.get());
+        return employeeDataRepository.getEmployeeDataDtoByLogin(employeeLogin);
     }
 
     @Transactional
@@ -54,41 +52,38 @@ public class AdminServiceImpl implements AdminService {
             throw new SelfChangeException("Self Change");
         }
 
-        Optional<Long> employee = employeeRepository.findIdByLogin(employeeLogin);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
-        employeeRepository.updateBlockCondition(employee.get(), blockCondition);
+        employeeRepository.updateBlockConditionByLogin(employeeLogin, blockCondition);
     }
 
+    @Transactional
     @Override
     public List<EntryDto> getEmployeeEntryList(String employeeLogin, String selfLogin) {
         if (employeeLogin.equals(selfLogin)) {
             throw new SelfChangeException("Self View");
         }
 
-        Optional<Long> employee = employeeRepository.findIdByLogin(employeeLogin);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
-        return entryRepository.findAllByEmployeeId(employee.get()).stream()
-                .map(EntryMapper::toEntryDto)
-                .collect(Collectors.toList());
+        return entryRepository.findEntriesByEmployeeLogin(employeeLogin);
     }
 
+    @Transactional
     @Override
     public boolean isEmployeeBlocked(String employeeLogin, String selfLogin) {
         if (employeeLogin.equals(selfLogin)) {
             throw new SelfChangeException("Self View");
         }
 
-        Optional<Employee> employee = employeeRepository.findByLogin(employeeLogin);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(employeeLogin)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
-        return employee.get().isBlock();
+        return employeeRepository.getIsBlockByLogin(employeeLogin);
     }
 }

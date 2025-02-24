@@ -1,5 +1,6 @@
 package com.infinity.nto.repository;
 
+import com.infinity.nto.dto.EmployeeDataDto;
 import com.infinity.nto.entity.EmployeeData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,11 +13,14 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeDataRepository extends JpaRepository<EmployeeData, Long> {
-    Optional<EmployeeData> findByOwnerId(long ownerId);
-    @Query("select e.id from EmployeeData e where e.ownerId = :owner_id")
-    Optional<Long> findIdByOwnerId(@Param("owner_id") long ownerId);
+    @Query("select count(e) > 0 from Employee e where e.login = :login and e.employeeData is not null")
+    boolean existsByEmployeeLogin(@Param("login") String login);
+
+    @Query("select new com.infinity.nto.dto.EmployeeDataDto(ed.name, ed.photo, ed.employeePosition, ed.lastVisit) " +
+            "from Employee e join e.employeeData ed where e.login = :login")
+    EmployeeDataDto getEmployeeDataDtoByLogin(@Param("login") String login);
 
     @Modifying
-    @Query("update EmployeeData e set e.lastVisit = :time where e.id = :id")
-    void updateTimeById(@Param("id") long id, @Param("time") LocalDateTime lastVisit);
+    @Query("update EmployeeData ed set ed.lastVisit = :time where ed.id = (select e.employeeData.id from Employee e where e.login = :login)")
+    void updateLastVisitByEmployeeLogin(@Param("login") String login, @Param("time") LocalDateTime time);
 }

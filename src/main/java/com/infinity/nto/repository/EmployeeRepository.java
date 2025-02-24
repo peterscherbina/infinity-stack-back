@@ -11,12 +11,15 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    @Query("select e.id from Employee e where e.login = :login")
-    Optional<Long> findIdByLogin(@Param("login") String login);
+    @Query("select count(e) > 0 from Employee e where e.login = :login")
+    boolean existsByLogin(@Param("login") String login);
 
-    Optional<Employee> findByLogin(String login);
+    @Query("select e.isBlock from Employee e where e.login = :login")
+    boolean getIsBlockByLogin(@Param("login") String login);
 
     @Modifying
-    @Query("update Employee set isBlock = :value where id = :id")
-    void updateBlockCondition(@Param("id") long id, @Param("value") boolean value);
+    @Query("update Employee e set e.isBlock = :value where e.login = :login")
+    void updateBlockConditionByLogin(@Param("login") String login, @Param("value") boolean value);
+
+    Optional<Employee> findByLogin(String s);
 }

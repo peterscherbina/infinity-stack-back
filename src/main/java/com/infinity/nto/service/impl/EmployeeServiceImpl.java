@@ -33,67 +33,57 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final CodeRepository codeRepository;
     private final EntryRepository entryRepository;
 
+    @Transactional
     @Override
     public EmployeeDataDto info(String login) {
-        Optional<Long> employee = employeeRepository.findIdByLogin(login);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
-
-        Optional<EmployeeData> employeeData = employeeDataRepository.findByOwnerId(employee.get());
-        if (employeeData.isEmpty()) {
+        if (employeeDataRepository.existsByEmployeeLogin(login)) {
             throw new EmployeeDataNotFoundException("Employee Data Not Found");
         }
 
-        return EmployeeDataMapper.toEmployeeDataDto(employeeData.get());
+        return employeeDataRepository.getEmployeeDataDtoByLogin(login);
     }
 
     @Transactional
     @Override
     public void open(String login, long value) {
-        Optional<Employee> employee = employeeRepository.findByLogin(login);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
-        if (employee.get().isBlock()) {
-            throw new EmployeeIsBlockedException("Employee Is Blocked");
-        }
-
-        Optional<Long> employeeData = employeeDataRepository.findIdByOwnerId(employee.get().getId());
-        if (employeeData.isEmpty()) {
+        if (employeeDataRepository.existsByEmployeeLogin(login)) {
             throw new EmployeeDataNotFoundException("Employee Data Not Found");
         }
 
-        Optional<Code> code = codeRepository.findByValue(value);
-        if (code.isEmpty()) {
+        if (codeRepository.existsByValue(value)) {
             throw new CodeNotFoundException("Code Not Found");
         }
+        if (employeeRepository.getIsBlockByLogin(login)) {
+            throw new EmployeeIsBlockedException("Employee Is Blocked");
+        }
 
-
-        employeeDataRepository.updateTimeById(employeeData.get(), LocalDateTime.now());
-
-        entryRepository.insert(employee.get().getId(), code.get().getId(), LocalDateTime.now());
+        employeeDataRepository.updateLastVisitByEmployeeLogin(login, LocalDateTime.now());
+        entryRepository.createEntry(login, value, LocalDateTime.now(), false);
     }
 
+    @Transactional
     @Override
     public List<EntryDto> getEntryList(String login) {
-        Optional<Long> employee = employeeRepository.findIdByLogin(login);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
-        return entryRepository.findAllByEmployeeId(employee.get()).stream()
-                .map(EntryMapper::toEntryDto)
-                .collect(Collectors.toList());
+        return entryRepository.findEntriesByEmployeeLogin(login);
     }
 
+    @Transactional
     @Override
     public boolean amIBlocked(String login) {
-        Optional<Employee> employee = employeeRepository.findByLogin(login);
-        if (employee.isEmpty()) {
+        if (employeeRepository.existsByLogin(login)) {
             throw new EmployeeNotFoundException("Employee Not Found");
         }
 
-        return employee.get().isBlock();
+        return employeeRepository.getIsBlockByLogin(login);
     }
 }

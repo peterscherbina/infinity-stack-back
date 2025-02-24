@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 public class EntryMapper {
     public static EntryDto toEntryDto(Entry entry) {
         return EntryDto.builder()
-                .codeId(entry.getCodeId())
+                //.codeId(entry.getCodeId())
                 .entryTime(entry.getEntryTime())
                 .isCard(entry.isCard())
                 .build();

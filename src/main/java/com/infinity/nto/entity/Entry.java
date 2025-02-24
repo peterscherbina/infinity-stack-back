@@ -21,6 +21,7 @@ public class Entry {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "code_id")
     private Code code;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
