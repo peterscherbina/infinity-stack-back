@@ -33,11 +33,7 @@ public class Employee implements UserDetails {
     )
     private EmployeeData employeeData;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "employee_id",
-            referencedColumnName = "id"
-    )
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<Entry> entries;
 
     @ManyToMany(fetch = FetchType.EAGER)

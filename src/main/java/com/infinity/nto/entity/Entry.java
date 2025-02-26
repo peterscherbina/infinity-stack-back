@@ -19,10 +19,17 @@ public class Entry {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "code_id")
+    @JoinColumn(
+            name = "code_id",
+            referencedColumnName = "id"
+    )
     private Code code;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "employee_id",
+            referencedColumnName = "id"
+    )
     private Employee employee;
 
     private LocalDateTime entryTime;
