@@ -13,9 +13,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "entry")
 public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,6 +34,9 @@ public class Entry {
     )
     private Employee employee;
 
+    @Column(name = "entry_time")
     private LocalDateTime entryTime;
+
+    @Column(name = "is_card")
     private boolean isCard;
 }

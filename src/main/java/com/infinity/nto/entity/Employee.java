@@ -16,14 +16,20 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "employee")
 public class Employee implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     private long id;
 
+    @Column(name = "login", unique = true)
     private String login;
+
+    @Column(name = "password_hashed")
     private String passwordHashed;
 
+    @Column(name = "is_block")
     private boolean isBlock;
 
     @OneToOne(fetch = FetchType.LAZY)
