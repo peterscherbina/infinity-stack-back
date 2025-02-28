@@ -12,4 +12,10 @@
     <include file="db.changelog/scheme/create-entry--2025-02-28.xml" />
     <include file="db.changelog/scheme/create-relationship-employee-and-role--2025-02-28.xml" />
 
+
+    <include file="db.changelog/data/data-employee-data--2025-02-28.xml" />
+    <include file="db.changelog/data/data-role--2025-02-28.xml" />
+    <include file="db.changelog/data/data-relationship-employee-and-role--2025-02-28.xml" />
+    <include file="db.changelog/data/data-employee--2025-02-28.xml" />
+
 </databaseChangeLog>

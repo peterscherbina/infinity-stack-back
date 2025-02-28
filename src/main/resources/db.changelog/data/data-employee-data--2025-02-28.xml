@@ -1,0 +1,12 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="data-employee-data--2025-02-28" author="peterscherbina">
+        <loadData tableName="employee_data"
+                  file="db.changelog/data/csv/data-employee-data--2025-02-28.csv"
+                  separator=";"
+                  encoding="UTF-8"/>
+    </changeSet>
+</databaseChangeLog>

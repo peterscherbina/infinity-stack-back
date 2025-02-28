@@ -23,7 +23,7 @@
             <column name="role_id" type="bigint">
                 <constraints nullable="false" unique="true"
                              foreignKeyName = "fk_relationship_role"
-                             referencedTableName="role"
+                             referencedTableName="role_of_employee"
                              referencedColumnNames = "id"/>
             </column>
         </createTable>

@@ -1,0 +1,3 @@
+login;password_hashed;is_block;employee_data_id
+admin;$2a$10$jUSU1.20p4yQLIm3Pjclce92lWKB0ND7NIFCi8L1AaP9eARC9jBqO;false;1
+employee;$2a$12$tcu/4mrJaMwLO5Uskojstu45joSdR2E5/WrLRELDis554DAo.Y5tS;false;2

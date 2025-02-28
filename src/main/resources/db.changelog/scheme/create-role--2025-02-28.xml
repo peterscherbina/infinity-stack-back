@@ -7,10 +7,10 @@
     <changeSet id="create-role--2025-02-28" author="peterscherbina">
         <preConditions>
             <not>
-                <tableExists tableName="role"/>
+                <tableExists tableName="role_of_employee"/>
             </not>
         </preConditions>
-        <createTable tableName="role">
+        <createTable tableName="role_of_employee">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
