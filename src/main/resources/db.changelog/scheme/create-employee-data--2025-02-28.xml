@@ -1,0 +1,31 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="create-employee-data--2025-02-28" author="peterscherbina">
+        <preConditions>
+            <not>
+                <tableExists tableName="employee_data"/>
+            </not>
+        </preConditions>
+        <createTable tableName="employee_data">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="photo" type="text">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="employee_position" type="text">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="last_visit" type="time with time zone">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="create-employee--2025-02-28" author="peterscherbina">
+        <preConditions>
+            <not>
+                <tableExists tableName="employee"/>
+            </not>
+        </preConditions>
+        <createTable tableName="employee">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="login" type="text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password_hashed" type="text">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="is_block" type="bool">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="employee_data_id" type="bigint">
+                <constraints nullable="true" unique="false"
+                             foreignKeyName = "fk_employee_and_employee_data"
+                             referencedTableName="employee_data"
+                             referencedColumnNames = "id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

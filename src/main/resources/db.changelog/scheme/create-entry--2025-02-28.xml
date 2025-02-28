@@ -1,0 +1,37 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="create-entry--2025-02-28" author="peterscherbina">
+        <preConditions>
+            <not>
+                <tableExists tableName="entry"/>
+            </not>
+        </preConditions>
+        <createTable tableName="entry">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="code_id" type="bigint">
+                <constraints nullable="false" unique="false"
+                             foreignKeyName = "fk_entry_and_code"
+                             referencedTableName="code"
+                             referencedColumnNames = "id"/>
+            </column>
+            <column name="employee_id" type="bigint">
+                <constraints nullable="false" unique="false"
+                             foreignKeyName = "fk_entry_and_employee"
+                             referencedTableName="employee"
+                             referencedColumnNames = "id"/>
+            </column>
+            <column name="entry_time" type="time with time zone">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="is_card" type="bool">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
