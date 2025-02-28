@@ -26,7 +26,7 @@
                              referencedTableName="employee"
                              referencedColumnNames = "id"/>
             </column>
-            <column name="entry_time" type="time with time zone">
+            <column name="entry_time" type="timestamp with time zone">
                 <constraints nullable="false" unique="false"/>
             </column>
             <column name="is_card" type="bool">

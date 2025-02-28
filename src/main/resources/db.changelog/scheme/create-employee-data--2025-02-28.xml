@@ -23,7 +23,7 @@
             <column name="employee_position" type="text">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="last_visit" type="time with time zone">
+            <column name="last_visit" type="timestamp with time zone">
                 <constraints nullable="false" unique="false"/>
             </column>
         </createTable>
