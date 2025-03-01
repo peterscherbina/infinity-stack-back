@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final CodeRepository codeRepository;
     private final EntryRepository entryRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public EmployeeDataDto info(String login) {
         if (!employeeRepository.existsByLogin(login)) {
@@ -67,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         entryRepository.createEntry(login, value, LocalDateTime.now(), false);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<EntryDto> getEntryList(String login) {
         if (!employeeRepository.existsByLogin(login)) {
@@ -77,7 +77,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return entryRepository.findEntriesByEmployeeLogin(login);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public boolean amIBlocked(String login) {
         if (!employeeRepository.existsByLogin(login)) {

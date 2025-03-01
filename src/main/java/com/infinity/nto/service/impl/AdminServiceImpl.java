@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
     private final EmployeeDataRepository employeeDataRepository;
     private final EntryRepository entryRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public EmployeeDataDto getEmployeeInfo(String employeeLogin, String selfLogin) {
         if (employeeLogin.equals(selfLogin)) {
@@ -59,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
         employeeRepository.updateBlockConditionByLogin(employeeLogin, blockCondition);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<EntryDto> getEmployeeEntryList(String employeeLogin, String selfLogin) {
         if (employeeLogin.equals(selfLogin)) {
@@ -73,7 +73,7 @@ public class AdminServiceImpl implements AdminService {
         return entryRepository.findEntriesByEmployeeLogin(employeeLogin);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public boolean isEmployeeBlocked(String employeeLogin, String selfLogin) {
         if (employeeLogin.equals(selfLogin)) {
