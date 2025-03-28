@@ -8,9 +8,9 @@ spring:
       ddl-auto: validate
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/isb?currentSchema=infinity_stack
-    username: isb
-    password: isb_password
+    url: jdbc:postgresql://localhost:5431/ist?currentSchema=infinity_stack
+    username: ist
+    password: ist_password
     driverClassName: org.postgresql.Driver
 
   liquibase:
